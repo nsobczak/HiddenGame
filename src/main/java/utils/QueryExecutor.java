@@ -1,8 +1,7 @@
 package utils;
 
-import fr.isen.java2.db.daos.impl.DataSourceFactory;
-import fr.isen.java2.db.mapper.ResultMapper;
-import fr.isen.java2.db.mapper.impl.GeneratedKeysMapper;
+import daos.impl.DataSourceFactory;
+import mapper.ResultMapper;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -28,33 +27,6 @@ public class QueryExecutor
             e.printStackTrace();
         }
     }
-
-
-    public static ResultMapper executeUpdateQuery(String query, Object... parameters) throws Exception
-    {
-        GeneratedKeysMapper generatedKeysMapper = new GeneratedKeysMapper();
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection())
-        {
-            try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
-            {
-                QueryExecutor.mapParameters(statement, parameters);
-                int nbRows = statement.executeUpdate();
-                System.out.println(String.format("%d rows updated", nbRows));
-
-                ResultSet ids = statement.getGeneratedKeys();
-                generatedKeysMapper.parseResultSet(ids);
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-        return generatedKeysMapper;
-    }
-
 
     private static void mapParameters(final PreparedStatement statement, final Object[] parameters) throws SQLException
     {
