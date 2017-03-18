@@ -30,7 +30,7 @@ public class FileSorterTestCase
     public void testPrepareDirectory() throws IOException
     {
         FileSorter sorter = new FileSorter();
-        Path path = sorter.prepareDirectory("testDirectory", Paths.get("test", "java", "nio", "sorter"));
+        Path path = sorter.prepareDirectory("archive", Paths.get("test", "java", "nio", "sorter", "testDirectory"));
         assertThat(Files.isDirectory(path)).isTrue();
     }
 
@@ -48,25 +48,27 @@ public class FileSorterTestCase
 //        //TODO
 //        FileSorter sorter = new FileSorter();
 //        sorter.copyFile(
-//                Paths.get("src", "isen", "java22017", "practical2", "animal", "adelie-penguin.html"),
-//                Paths.get("src", "isen", "java22017", "practical2")
+//                Paths.get("test", "java", "nio", "sorter", "testDirectory", "test.txt"),
+//                Paths.get("test", "java", "nio", "sorter", "test.txt")
 //        );
+//        assertThat(Files.isRegularFile(Paths.get("test", "java", "nio", "sorter", "test.txt"))).isTrue();
 //    }
 
-//    @Test
-//    public void testMoveFile() throws IOException
-//    {
-//        //TODO
-//        FileSorter sorter = new FileSorter();
-//        Path archive = Paths.get("src", "isen", "java22017", "practical2", "archive");
-////        System.out.println(archive);
-//        sorter.setArchive(archive);
-////        System.out.println(sorter.getArchive());
-//
-//        sorter.moveFileToArchive(
-//                Paths.get("src", "isen", "java22017", "practical2", "animal", "adelie-penguin.html")
-//        );
-//    }
+    @Test
+    public void testMoveFile() throws IOException
+    {
+        //TODO
+        FileSorter sorter = new FileSorter();
+        Path archive = Paths.get("test", "java", "nio", "sorter", "testDirectory", "archive");
+        sorter.setArchive(archive);
+
+        Path targetPath = Paths.get("test", "java", "nio", "sorter", "testDirectory", "testMoveFile.txt");
+        if (Files.notExists(targetPath)){
+            Files.createFile(targetPath);
+        }
+
+        sorter.moveFileToArchive(Paths.get("test", "java", "nio", "sorter", "testDirectory", "testMoveFile.txt"));
+    }
 
 //    @Test
 //    public void testConstructor() throws IOException
