@@ -57,7 +57,6 @@ public class FileSorterTestCase
     @Test
     public void testMoveFile() throws IOException
     {
-        //TODO
         FileSorter sorter = new FileSorter();
         Path archive = Paths.get("test", "java", "nio", "sorter", "testDirectory", "archive");
         sorter.setArchive(archive);
@@ -70,17 +69,16 @@ public class FileSorterTestCase
         sorter.moveFileToArchive(Paths.get("test", "java", "nio", "sorter", "testDirectory", "testMoveFile.txt"));
     }
 
-//    @Test
-//    public void testConstructor() throws IOException
-//    {
-//        //TODO: pathToRoot
-//        String pathToRoot = "";
-//        FileSorter sorter = new FileSorter(pathToRoot);
-//        System.out.println("getArchive : " + sorter.getArchive());
-//        System.out.println("getRoot : " + sorter.getRoot());
-//        System.out.println("getByExtension : " + sorter.getByExtension());
-//
-//    }
+    @Test
+    public void testConstructor() throws IOException
+    {
+        String pathToRoot = "test";
+        FileSorter sorter = new FileSorter(pathToRoot);
+        assertThat(sorter.getRoot()).isEqualTo(Paths.get(pathToRoot));
+        assertThat(sorter.getArchive()).isEqualTo(Paths.get(pathToRoot, "archive"));
+        assertThat(sorter.getByExtension()).isEqualTo(Paths.get(pathToRoot, "byext"));
+
+    }
 //
 //    @Test
 //    public void testSortFiles() throws IOException
