@@ -24,24 +24,27 @@ public class FileSorterTestCase
 
 
     @Test
-    public static void testPrepareDirectory() throws IOException
+    public void testPrepareDirectory() throws IOException
     {
+        //TODO
         FileSorter sorter = new FileSorter();
         Path path = sorter.prepareDirectory("newdir", Paths.get("src", "isen", "java22017", "practical2"));
         //System.out.println(path.getParent());
     }
 
     @Test
-    public static void testGetExtension() throws IOException
+    public void testGetExtension() throws IOException
     {
+        //TODO
         FileSorter sorter = new FileSorter();
         Path path = Paths.get("src", "isen", "java22017", "practical2", "test.txt");
         System.out.println(sorter.getExtension(path));
     }
 
     @Test
-    public static void testCopyFile() throws IOException
+    public void testCopyFile() throws IOException
     {
+        //TODO
         FileSorter sorter = new FileSorter();
         sorter.copyFile(
                 Paths.get("src", "isen", "java22017", "practical2", "animal", "adelie-penguin.html"),
@@ -50,8 +53,9 @@ public class FileSorterTestCase
     }
 
     @Test
-    public static void testMoveFile() throws IOException
+    public void testMoveFile() throws IOException
     {
+        //TODO
         FileSorter sorter = new FileSorter();
         Path archive = Paths.get("src", "isen", "java22017", "practical2", "archive");
 //        System.out.println(archive);
@@ -64,8 +68,10 @@ public class FileSorterTestCase
     }
 
     @Test
-    public static void testConstructor(String pathToRoot) throws IOException
+    public void testConstructor() throws IOException
     {
+        //TODO: pathToRoot
+        String pathToRoot = "";
         FileSorter sorter = new FileSorter(pathToRoot);
         System.out.println("getArchive : " + sorter.getArchive());
         System.out.println("getRoot : " + sorter.getRoot());
@@ -74,8 +80,10 @@ public class FileSorterTestCase
     }
 
     @Test
-    public static void testSortFiles(String pathToRoot) throws IOException
+    public void testSortFiles() throws IOException
     {
+        //TODO: pathToRoot
+        String pathToRoot = "";
         System.out.println("===test 1===");
         FileSorter sorter1 = new FileSorter();
         System.out.println(sorter1.sortFiles());
