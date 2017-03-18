@@ -26,7 +26,7 @@ public class FileResultMapper implements ResultMapper<File>
         this.filesList = filesList;
     }
 
-
+    //________________________________________________________________________________________
     @Override
     public List<File> getParsedList() throws SQLException
     {

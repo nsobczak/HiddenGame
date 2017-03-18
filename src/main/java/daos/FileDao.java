@@ -9,11 +9,9 @@ import java.util.List;
  */
 public interface FileDao
 {
-    List<File> listMovies() throws Exception;
+    List<File> listFiles() throws Exception;
 
-    List<File> listMoviesByGenre(String genreName) throws Exception;
-
-    File addMovie(File movie) throws Exception;
+//    File addFile(File file) throws Exception;
 
 }
 

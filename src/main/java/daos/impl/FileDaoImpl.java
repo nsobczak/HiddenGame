@@ -13,8 +13,9 @@ import java.util.List;
  */
 public class FileDaoImpl implements FileDao
 {
+
     @Override
-    public List<File> listMovies() throws Exception
+    public List<File> listFiles() throws Exception
     {
         List<File> returnedList = new ArrayList<>();
         FileResultMapper fileResultMapper = new FileResultMapper(returnedList);
@@ -23,19 +24,6 @@ public class FileDaoImpl implements FileDao
         return fileResultMapper.getParsedList();
     }
 
-    @Override
-    public List<File> listMoviesByGenre(String genreName) throws Exception
-    {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public File addMovie(File movie) throws Exception
-    {
-        //TODO
-        return null;
-    }
 
 }
 
