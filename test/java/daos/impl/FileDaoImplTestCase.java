@@ -56,37 +56,5 @@ public class FileDaoImplTestCase
                         );
     }
 
-//
-//    @Test
-//    public void shouldListMoviesByGenre() throws Exception {
-//        // WHEN
-//        List<File> files = fileDao.listMoviesByGenre("Comedy");
-//        // THEN
-//        assertThat(files).hasSize(2);
-//        assertThat(files).extracting("director", "title").containsOnly(tuple("director 2", "My Title 2"),
-//                tuple("director 3", "Third title"));
-//    }
-//
-//
-//    @Test
-//    public void shouldAddMovie() throws Exception {
-//        // GIVEN
-//        Movie movieToAdd = new Movie();
-//        movieToAdd.setTitle("TitleTest");
-//        movieToAdd.setDirector("DirectorTest");
-//        movieToAdd.setDuration(42);
-//        movieToAdd.setGenre(genreDao.getGenre("Western"));
-//        movieToAdd.setReleaseDate(LocalDate.of(2017,2,13));
-//        movieToAdd.setSummary("SummaryTest");
-//        // WHEN
-//        movieDao.addMovie(movieToAdd);
-//        // THEN
-//        List<Movie> movies = movieDao.listMoviesByGenre("Western");
-//        assertThat(movies).hasSize(1);
-//        assertThat(movies.get(0).getId()).isNotNull();
-//        assertThat(movies.get(0).getTitle()).isEqualTo(movieToAdd.getTitle());
-//        assertThat(movies.get(0).getDirector()).isEqualTo(movieToAdd.getDirector());
-//        assertThat(movies.get(0).getSummary()).isEqualTo(movieToAdd.getSummary());
-//        assertThat(movies.get(0).getDuration()).isEqualTo(movieToAdd.getDuration());
-//    }
+
 }
