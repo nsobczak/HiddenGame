@@ -75,4 +75,51 @@ public class File
     {
         this.content = content;
     }
+
+
+    //________________________________________________________________________________________
+    @Override
+    public String toString()
+    {
+        String result = "Id : " + this.getId().toString() +
+                "\nFilename : " + this.getFilename() +
+                "\nParent : " + this.getParent() +
+                "\nIv : " + this.getIv() +
+                "\nContent : " + this.getContent();
+        return result;
+    }
+
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof File)) return false;
+        else
+        {
+            Boolean result = true;
+            File otherFile = (File) other;
+
+            if (this.getId() != otherFile.getId())
+            {
+                result = false;
+            } else if (this.getFilename() != otherFile.getFilename())
+            {
+                result = false;
+            } else if (this.getParent() != otherFile.getParent())
+            {
+                result = false;
+            } else if (this.getIv() != otherFile.getIv())
+            {
+                result = false;
+            } else if (this.getContent() != otherFile.getContent())
+            {
+                result = false;
+            }
+            return result;
+        }
+    }
+
+
 }

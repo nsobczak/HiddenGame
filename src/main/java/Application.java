@@ -1,11 +1,18 @@
+import daos.FileDao;
 import daos.impl.FileDaoImpl;
+import models.File;
+import services.CryptoService;
 
-public class Application {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Application
+{
     public static void main(String[] args) throws Exception
     {
         System.out.println("hello world !");
-//        FileDaoImpl fileDao = new FileDaoImpl();
-//        fileDao.listFiles();
 
     }
+
+
 }
