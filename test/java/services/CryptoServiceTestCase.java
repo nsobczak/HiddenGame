@@ -229,7 +229,7 @@ public class CryptoServiceTestCase
 
 
     @Test
-    public void shouldEncryptFiles() throws Exception
+        public void shouldEncryptFiles() throws Exception
     {
         //TODO: check if it is a relevant test
         // WHEN
@@ -239,9 +239,9 @@ public class CryptoServiceTestCase
         String encryptedParent = cryptoService.encrypt(clearByteParent);
 
         // THEN
-        System.out.println(encryptedFilename);
+//        System.out.println(encryptedFilename);
         assertThat(encryptedFilename).isNotEqualTo("backgroundGenerator.js");
-        System.out.println(encryptedParent);
+//        System.out.println(encryptedParent);
         assertThat(encryptedParent).isNotEqualTo("code/");
     }
 
