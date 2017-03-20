@@ -101,21 +101,26 @@ public class File
             Boolean result = true;
             File otherFile = (File) other;
 
-            if (this.getId() != otherFile.getId())
+            if (!this.getId().equals(otherFile.getId()))
             {
                 result = false;
-            } else if (this.getFilename() != otherFile.getFilename())
+                System.err.println("this.getId() = " + this.getId() + " != " + otherFile.getId() + " = otherFile.getId()");
+            } else if (!this.getFilename().equals(otherFile.getFilename()))
             {
                 result = false;
-            } else if (this.getParent() != otherFile.getParent())
+                System.err.println("getFilename() = " + this.getFilename() + " != " + otherFile.getFilename() + " = otherFile.getFilename()");
+            } else if (!this.getParent().equals(otherFile.getParent()))
             {
                 result = false;
-            } else if (this.getIv() != otherFile.getIv())
+                System.err.println("getParent() = " + this.getParent() + " != " + otherFile.getParent() + " = otherFile.getParent()");
+            } else if (!this.getIv().equals(otherFile.getIv()))
             {
                 result = false;
-            } else if (this.getContent() != otherFile.getContent())
+                System.err.println("getIv() = " + this.getIv() + " != " + otherFile.getIv() + " = otherFile.getIv()");
+            } else if (!this.getContent().equals(otherFile.getContent()))
             {
                 result = false;
+                System.err.println("getContent() = " + this.getContent() + " != " + otherFile.getContent() + " = otherFile.getContent()");
             }
             return result;
         }
