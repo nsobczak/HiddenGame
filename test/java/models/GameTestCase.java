@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,10 +76,10 @@ public class GameTestCase
     @Test
     public void shouldCreateGameFile() throws Exception
     {
-        //TODO
         // WHEN
-        game.setFileSorter(new FileSorter("buildGameTest"));
-        if (Files.notExists(game.fileSorter.getRoot())){
+        game.setFileSorter(new FileSorter(Paths.get("test", "java", "models", "buildGameCreateFileTest").toString()));
+        if (Files.notExists(game.fileSorter.getRoot()))
+        {
             Files.createDirectories(game.fileSorter.getRoot());
         }
         File testFileWithoutParent = new File(42, "testFileWithoutParent.txt", "", "iv", "I am a test file");
@@ -87,6 +89,27 @@ public class GameTestCase
         assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("testFileWithoutParent.txt")))).isTrue();
         game.createGameFile(game.getFileSorter(), testFileWithParent);
         assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("parentTest", "testFileWithParent.txt")))).isTrue();
+    }
+
+
+    @Test
+    public void shouldBuildGameFromFileList() throws Exception
+    {
+        // WHEN
+        game.setFileSorter(new FileSorter(Paths.get("test", "java", "models", "buildGameTest").toString()));
+        if (Files.notExists(game.fileSorter.getRoot()))
+        {
+            Files.createDirectories(game.fileSorter.getRoot());
+        }
+        File testFileWithoutParent = new File(42, "testFileWithoutParent.txt", "", "iv", "I am a test file");
+        File testFileWithParent = new File(666, "testFileWithParent.txt", "parentTest", "iv", "I am a test file");
+        File testFile3 = new File(3, "testFile3.md", "", "iv", "# testFile3\nI am a test file");
+        //THEN
+        game.setGameFiles(Arrays.asList(new File[]{testFileWithoutParent, testFileWithParent, testFile3}));
+        game.buildGameFromFileList();
+        assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("testFileWithoutParent.txt")))).isTrue();
+        assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("parentTest", "testFileWithParent.txt")))).isTrue();
+        assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("testFile3.md")))).isTrue();
     }
 
 
