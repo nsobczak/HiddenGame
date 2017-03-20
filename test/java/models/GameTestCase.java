@@ -1,9 +1,11 @@
 package models;
 
+import nio.sorter.FileSorter;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +25,6 @@ public class GameTestCase
     @Test
     public void shouldInitialiazeGameFiles() throws Exception
     {
-        //TODO
         // WHEN
         game.initDecryptedFileList();
         File otherFile = new File(236, "backgroundRenderer.js", "code/", "BFhXOm4J30FkoWwRV1jNmw==",
@@ -68,6 +69,24 @@ public class GameTestCase
         assertThat(game.getGameFiles()).hasSize(108);
         assertThat(game.getGameFiles().get(1).equals(otherFile)).isTrue();
         assertThat(game.getGameFiles().get(62).getParent().equals("")).isTrue();
+    }
+
+    @Test
+    public void shouldCreateGameFile() throws Exception
+    {
+        //TODO
+        // WHEN
+        game.setFileSorter(new FileSorter("buildGameTest"));
+        if (Files.notExists(game.fileSorter.getRoot())){
+            Files.createDirectories(game.fileSorter.getRoot());
+        }
+        File testFileWithoutParent = new File(42, "testFileWithoutParent.txt", "", "iv", "I am a test file");
+        File testFileWithParent = new File(666, "testFileWithParent.txt", "parentTest", "iv", "I am a test file");
+        //THEN
+        game.createGameFile(game.getFileSorter(), testFileWithoutParent);
+        assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("testFileWithoutParent.txt")))).isTrue();
+        game.createGameFile(game.getFileSorter(), testFileWithParent);
+        assertThat(Files.exists(game.getFileSorter().getRoot().resolve(Paths.get("parentTest", "testFileWithParent.txt")))).isTrue();
     }
 
 

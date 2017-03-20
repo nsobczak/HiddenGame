@@ -2,7 +2,6 @@ package nio.sorter;
 
 import org.junit.Before;
 import org.junit.Test;
-import services.CryptoService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -61,14 +60,13 @@ public class FileSorterTestCase
     {
         //WHEN
         sorter.prepareDirectory("game", Paths.get("test", "java", "nio", "sorter", "testDirectory"));
-        sorter.setGame(Paths.get("test", "java", "nio", "sorter", "testDirectory", "game"));
         Path targetPath = Paths.get("test", "java", "nio", "sorter", "testDirectory", "testMoveFile.txt");
         if (Files.notExists(targetPath))
         {
             Files.createFile(targetPath);
         }
         //THEN
-        sorter.moveFileToGameFolder(targetPath);
+        sorter.moveFileToFolder(targetPath, Paths.get("test", "java", "nio", "sorter", "testDirectory", "game"));
         assertThat(Files.exists(Paths.get("test", "java", "nio", "sorter", "testDirectory", "game", "testMoveFile.txt")))
                 .isTrue();
     }

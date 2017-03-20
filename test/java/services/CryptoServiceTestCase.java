@@ -1,18 +1,9 @@
 package services;
 
-import daos.FileDao;
-import daos.impl.DataSourceFactory;
-import daos.impl.FileDaoImpl;
-import models.File;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.util.List;
-
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
 
 /**
  * Created by nicolas on 19/03/17.

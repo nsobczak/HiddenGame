@@ -6,6 +6,9 @@ import nio.sorter.FileSorter;
 import services.CryptoService;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class Game
     public Game()
     {
         this.gameFiles = new ArrayList<File>();
+        this.fileSorter = new FileSorter();
     }
 
     public Game(String rootDirectory) throws IOException
@@ -36,6 +40,16 @@ public class Game
     public FileSorter getFileSorter()
     {
         return fileSorter;
+    }
+
+    public void setGameFiles(List<File> gameFiles)
+    {
+        this.gameFiles = gameFiles;
+    }
+
+    public void setFileSorter(FileSorter fileSorter)
+    {
+        this.fileSorter = fileSorter;
     }
 
     //________________________________________________________________________________________
@@ -65,6 +79,46 @@ public class Game
     }
 
 
+    public void createGameFile(FileSorter fileSorter, File file) throws IOException
+    {
+        if (fileSorter != null)
+        {
+            if (file != null)
+            {
+                Path pathToFile = null;
+                if (!file.getParent().equals(""))
+                {
+                    fileSorter.prepareDirectory(file.getParent(), fileSorter.getRoot());
+                    pathToFile = this.fileSorter.getRoot().resolve(Paths.get(file.getParent(), file.getFilename()));
+                } else
+                {
+                    pathToFile = this.fileSorter.getRoot().resolve(Paths.get(file.getFilename()));
+                }
+                if (Files.notExists(pathToFile))
+                {
+                    Files.createFile(pathToFile);
+                    Files.write(pathToFile, file.getContent().getBytes());
+                } else
+                {
+                    System.err.println("File already exists : " + pathToFile.toString());
+                }
+            } else System.err.println("file is null");
+        } else System.err.println("fileSorter is null");
+    }
+
+
+    public void buildGameFromFileList() throws IOException
+    {
+        if (Files.notExists(this.fileSorter.getRoot()))
+        {
+            Files.createDirectories(this.fileSorter.getRoot());
+        }
+        for (File file :
+                this.getGameFiles())
+        {
+            createGameFile(this.fileSorter, file);
+        }
+    }
 
 
 }

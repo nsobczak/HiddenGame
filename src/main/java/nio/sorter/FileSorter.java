@@ -10,14 +10,12 @@ import java.nio.file.*;
 public class FileSorter
 {
     private Path root;
-    private Path game;
 
 
     //_______________________________________________________
     public FileSorter()
     {
         this.root = null;
-        this.game = null;
     }
 
 
@@ -25,44 +23,17 @@ public class FileSorter
     {
         //===initialize the root attribute===
         this.root = Paths.get(rootDirectory);
-
-        //===initialize the game attribute===
-        Path pathToGame = Paths.get(this.root.toString());
-        try
-        {
-            //Création du répertoire game s'il n'existe pas
-            this.game = prepareDirectory("game", pathToGame);
-        } catch (IOException e)
-        {
-            System.out.println("Le répertoire game existe déjà");
-            this.game = pathToGame.resolve("game");
-//            e.printStackTrace();
-        }
-
     }
 
 
-    //______________________________________________________________
     public void setRoot(Path root)
     {
         this.root = root;
     }
 
-    public void setGame(Path game)
-    {
-        this.game = game;
-    }
-
-
-    //______________________________________________________________
     public Path getRoot()
     {
         return root;
-    }
-
-    public Path getGame()
-    {
-        return game;
     }
 
 
@@ -176,7 +147,7 @@ public class FileSorter
      * @param entry
      * @throws IOException
      */
-    public void moveFileToGameFolder(Path entry) throws IOException
+    public void moveFileToFolder(Path entry, Path targetFolder) throws IOException
     {
         if (Files.notExists(entry))
         {
@@ -194,7 +165,7 @@ public class FileSorter
             }
             //Déplacement du fichier
             Path filename = entry.getFileName();
-            Path prepDir = game.resolve(filename);
+            Path prepDir = targetFolder.resolve(filename);
             Path file = Files.move(entry, prepDir, StandardCopyOption.REPLACE_EXISTING);
         }
     }
