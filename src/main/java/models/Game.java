@@ -19,17 +19,33 @@ public class Game
 {
     List<File> gameFiles;
     FileSorter fileSorter;
+    private String host;
+    private int portNumber;
+    private String schema;
+    private String user;
+    private String password;
+
 
     public Game()
     {
         this.gameFiles = new ArrayList<File>();
         this.fileSorter = new FileSorter();
+        this.host = null;
+        this.portNumber = -1;
+        this.schema = null;
+        this.user = null;
+        this.password = null;
     }
 
     public Game(String rootDirectory) throws IOException
     {
         this.gameFiles = new ArrayList<File>();
         this.fileSorter = new FileSorter(rootDirectory);
+        this.host = null;
+        this.portNumber = -1;
+        this.schema = null;
+        this.user = null;
+        this.password = null;
     }
 
     public List<File> getGameFiles()
@@ -53,6 +69,32 @@ public class Game
     }
 
     //________________________________________________________________________________________
+    public void initGameDatabaseProperties(String host, int portNumber, String schema, String user, String password)
+    {
+        this.host = host;
+        this.portNumber = portNumber;
+        this.schema = schema;
+        this.user = user;
+        this.password = password;
+    }
+
+    public void writeDatabaseProperties(String host, int portNumber, String schema, String user, String password) throws IOException
+    {
+        Path pathToDbProperties = Paths.get("src", "main", "resources", "db.properties");
+        if (Files.notExists(pathToDbProperties))
+        {
+            Files.createFile(pathToDbProperties);
+        }
+        String content = "db.server=" + host +
+                "\ndb.port=" + String.valueOf(portNumber) +
+                "\ndb.schema=" + schema +
+                "\ndb.user=" + user +
+                "\ndb.password=" + password;
+        Files.write(pathToDbProperties, content.getBytes());
+        initGameDatabaseProperties(host, portNumber, schema, user, password);
+    }
+
+
     public void initDecryptedFileList() throws Exception
     {
         FileDao fileDao = new FileDaoImpl();

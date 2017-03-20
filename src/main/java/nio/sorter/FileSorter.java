@@ -21,7 +21,6 @@ public class FileSorter
 
     public FileSorter(String rootDirectory) throws IOException
     {
-        //===initialize the root attribute===
         this.root = Paths.get(rootDirectory);
     }
 
@@ -40,11 +39,6 @@ public class FileSorter
     //______________________________________________________________
 
     /**
-     * PREPAREDIRECTORY
-     * It creates a Path “by resolving the newDir from the base”.
-     * If the created Path does not exist, the method creates it in the file system.
-     * Finally, the method returns the Path.
-     *
      * @param newDir: le nouveau repertoire
      * @param base:   le chemin vers le dossier ou l'on veut creer le repertoire
      * @return
@@ -85,8 +79,6 @@ public class FileSorter
 
     /**
      * GETEXTENSION
-     * From the entry, it gets the filename then returns a substring
-     * which corresponds to everything after the last dot of the filename.
      *
      * @param entry: le chemin du fichier a analyser
      * @return: l'extension du fichier
@@ -106,11 +98,6 @@ public class FileSorter
 
 
     /**
-     * COPYFILE
-     * Inside the directory,
-     * it resolves the filename of the entry in order to build the target of the copy.
-     * Finally, it copies the entry to the built target.
-     *
      * @param entry:     chemin vers le fichier que l'on veut copier
      * @param directory: chemin vers le dossier ou l'on veut copier le fichier
      * @throws IOException, FileAlreadyExistsException
@@ -139,11 +126,6 @@ public class FileSorter
 
 
     /**
-     * MOVEFILETOARCHIVE
-     * Inside the game attribute,
-     * it resolves the filename of the entry in order to build the target of the copy.
-     * Finally, it moves the entry to the target.
-     *
      * @param entry
      * @throws IOException
      */
