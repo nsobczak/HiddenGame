@@ -10,25 +10,33 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class FileTestCase
 {
-    private File file;
+    private File fileWithCryptedContent;
+    private File fileWithContent;
 
     @Before
     public void initFile() throws Exception
     {
-        file = new File(123, "testFileName", "testParent", "testIv", "testContent");
+        fileWithCryptedContent = new File(123, "testFileName", "testParent", "testIv", "testContent");
+        fileWithContent = new File(600, "testFileName", "testParent", "testIv", new byte[]{123, 100});
     }
 
 
     @Test
     public void toStringShouldPrintFile() throws Exception
     {
-        // WHEN
         // THEN
-        assertThat(file.toString()).isEqualTo("Id : 123\n" +
+        assertThat(fileWithCryptedContent.toString()).isEqualTo("Id : 123\n" +
                 "Filename : testFileName\n" +
                 "Parent : testParent\n" +
                 "Iv : testIv\n" +
-                "Content : testContent");
+                "CryptedStringContent : testContent\n" +
+                "Content : null");
+        assertThat(fileWithContent.toString()).isEqualTo("Id : 600\n" +
+                "Filename : testFileName\n" +
+                "Parent : testParent\n" +
+                "Iv : testIv\n" +
+                "CryptedStringContent : \n" +
+                "Content : {d");
     }
 
 
@@ -36,9 +44,11 @@ public class FileTestCase
     public void equalsShouldBeEqual() throws Exception
     {
         // WHEN
-        File otherFile = new File(123, "testFileName", "testParent", "testIv", "testContent");
+        File otherFile1 = new File(123, "testFileName", "testParent", "testIv", "testContent");
+        File otherFile2 = new File(600, "testFileName", "testParent", "testIv", new byte[]{123, 100});
         //THEN
-        assertThat(file.equals(otherFile)).isTrue();
+        assertThat(fileWithCryptedContent.equals(otherFile1)).isTrue();
+        assertThat(fileWithContent.equals(otherFile2)).isTrue();
     }
 
     @Test
@@ -47,19 +57,28 @@ public class FileTestCase
         // WHEN
         File otherFileNull = null;
         String otherFileString = "Test";
-        File otherFileId = new File(124, "testFileName", "testParent", "testIv", "testContent");
-        File otherFileFilename = new File(123, "test", "testParent", "testIv", "testContent");
-        File otherFileParent = new File(123, "testFileName", "test", "testIv", "testContent");
-        File otherFileIv = new File(123, "testFileName", "testParent", "test", "testContent");
-        File otherFileContent = new File(123, "testFileName", "testParent", "testIv", "test");
+        File otherFileId_1 = new File(124, "testFileName", "testParent", "testIv", "testContent");
+        File otherFileFilename_1 = new File(123, "test", "testParent", "testIv", "testContent");
+        File otherFileParent_1 = new File(123, "testFileName", "test", "testIv", "testContent");
+        File otherFileIv_1 = new File(123, "testFileName", "testParent", "test", "testContent");
+        File otherFileContent_1 = new File(123, "testFileName", "testParent", "testIv", "test");
+        File otherFileCryptedContent_1 = new File(123, "testFileName", "testParent", "testIv", new byte[]{123, 127, 100});
+        File otherFileContent_2 = new File(600, "testFileName", "testParent", "testIv", "test");
+        File otherFileCryptedContent_2 = new File(600, "testFileName", "testParent", "testIv", new byte[]{123, 127, 100});
+
         //THEN
-        assertThat(file.equals(otherFileNull)).isFalse();
-        assertThat(file.equals(otherFileString)).isFalse();
-        assertThat(file.equals(otherFileId)).isFalse();
-        assertThat(file.equals(otherFileFilename)).isFalse();
-        assertThat(file.equals(otherFileParent)).isFalse();
-        assertThat(file.equals(otherFileIv)).isFalse();
-        assertThat(file.equals(otherFileContent)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileNull)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileString)).isFalse();
+
+        assertThat(fileWithCryptedContent.equals(otherFileId_1)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileFilename_1)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileParent_1)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileIv_1)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileContent_1)).isFalse();
+        assertThat(fileWithCryptedContent.equals(otherFileCryptedContent_1)).isFalse();
+
+        assertThat(fileWithContent.equals(otherFileContent_2)).isFalse();
+        assertThat(fileWithContent.equals(otherFileCryptedContent_2)).isFalse();
     }
 
 

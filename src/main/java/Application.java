@@ -4,6 +4,7 @@ import models.File;
 import models.Game;
 import services.CryptoService;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,9 @@ public class Application
     {
         System.out.println("hello world !");
 
-        Game game = new Game();
+        Game game = new Game(Paths.get("game").toString());
         game.initDecryptedFileList();
-        System.out.println(game.getGameFiles().get(62).toString());
-
-
+        game.buildGameFromFileList();
     }
 
 

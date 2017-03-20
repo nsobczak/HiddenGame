@@ -3,6 +3,8 @@ package services;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Base64;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -230,9 +232,7 @@ public class CryptoServiceTestCase
         String encryptedParent = cryptoService.encrypt(clearByteParent);
 
         // THEN
-//        System.out.println(encryptedFilename);
         assertThat(encryptedFilename).isNotEqualTo("backgroundGenerator.js");
-//        System.out.println(encryptedParent);
         assertThat(encryptedParent).isNotEqualTo("code/");
     }
 

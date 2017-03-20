@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Arrays;
+
 /**
  * Created by nicolas on 13/03/17.
  */
@@ -9,19 +11,41 @@ public class File
     private String filename;
     private String parent;
     private String iv;
-    private String content;
+    private String cryptedStringContent;
+    private byte[] content;
+
 
 
     //________________________________________________________________________________________
-    public File(Integer id, String filename, String parent, String iv, String content)
+    public File(Integer id, String filename, String parent, String iv, String cryptedStringContent)
+    {
+        this.id = id;
+        this.filename = filename;
+        this.parent = parent;
+        this.iv = iv;
+        this.cryptedStringContent = cryptedStringContent;
+        this.content = null;
+    }
+
+    public File(Integer id, String filename, String parent, String iv, byte[] content)
     {
         this.id = id;
         this.filename = filename;
         this.parent = parent;
         this.iv = iv;
         this.content = content;
+        this.cryptedStringContent = "";
     }
 
+    public File(Integer id, String filename, String parent, String iv, String cryptedStringContent, byte[] content)
+    {
+        this.id = id;
+        this.filename = filename;
+        this.parent = parent;
+        this.iv = iv;
+        this.cryptedStringContent = cryptedStringContent;
+        this.content = content;
+    }
 
     //________________________________________________________________________________________
     public Integer getId()
@@ -44,11 +68,15 @@ public class File
         return iv;
     }
 
-    public String getContent()
+    public byte[] getContent()
     {
         return content;
     }
 
+    public String getCryptedStringContent()
+    {
+        return cryptedStringContent;
+    }
 
     //________________________________________________________________________________________
     public void setId(Integer id)
@@ -71,11 +99,15 @@ public class File
         this.iv = iv;
     }
 
-    public void setContent(String content)
+    public void setContent(byte[] content)
     {
         this.content = content;
     }
 
+    public void setCryptedStringContent(String stringContent)
+    {
+        this.cryptedStringContent = stringContent;
+    }
 
     //________________________________________________________________________________________
     @Override
@@ -85,7 +117,9 @@ public class File
                 "\nFilename : " + this.getFilename() +
                 "\nParent : " + this.getParent() +
                 "\nIv : " + this.getIv() +
-                "\nContent : " + this.getContent();
+                "\nCryptedStringContent : " + this.getCryptedStringContent();
+        if (this.getContent() != null) result += "\nContent : " + new String(this.getContent());
+        else result += "\nContent : " + this.getContent();
         return result;
     }
 
@@ -117,8 +151,17 @@ public class File
             {
                 result = false;
                 System.err.println("getIv() = " + this.getIv() + " != " + otherFile.getIv() + " = otherFile.getIv()");
-            } else if (!this.getContent().equals(otherFile.getContent()))
+            } else if (!this.getCryptedStringContent().equals(otherFile.getCryptedStringContent()))
             {
+                result = false;
+                System.err.println("getCryptedStringContent() = " + this.getCryptedStringContent() + " != " + otherFile.getCryptedStringContent() + " = otherFile.getCryptedStringContent()");
+            } else if (this.getContent() != null && otherFile.getContent() != null &&
+                    !Arrays.equals(this.getContent(), otherFile.getContent()))
+            {
+                result = false;
+                System.err.println("getContent() = " + this.getContent() + " != " + otherFile.getContent() + " = otherFile.getContent()");
+            }else if ((this.getContent() == null && otherFile.getContent() != null) ||
+                    this.getContent() != null && otherFile.getContent() == null){
                 result = false;
                 System.err.println("getContent() = " + this.getContent() + " != " + otherFile.getContent() + " = otherFile.getContent()");
             }

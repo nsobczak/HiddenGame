@@ -67,11 +67,10 @@ public class Game
             String filename = new String(byteFilename);
             byte[] byteParent = cryptoService.decrypt(file.getParent(), file.getIv());
             String parent = new String(byteParent);
-            byte[] byteContent = cryptoService.decrypt(file.getContent(), file.getIv());
-            String content = new String(byteContent);
+            file.setContent(cryptoService.decrypt(file.getCryptedStringContent(), file.getIv()));
             String Iv = new String(file.getIv());
 
-            gameFiles.add(new File(file.getId(), filename, parent, Iv, content));
+            gameFiles.add(new File(file.getId(), filename, parent, file.getCryptedStringContent(), file.getContent()));
 
             fileNumber++;
         }
@@ -97,7 +96,7 @@ public class Game
                 if (Files.notExists(pathToFile))
                 {
                     Files.createFile(pathToFile);
-                    Files.write(pathToFile, file.getContent().getBytes());
+                    Files.write(pathToFile, file.getContent());
                 } else
                 {
                     System.err.println("File already exists : " + pathToFile.toString());
