@@ -159,6 +159,7 @@ public class Game
         {
             createGameFile(this.fileSorter, file);
         }
+        System.out.println("Game has been built !");
     }
 
 
