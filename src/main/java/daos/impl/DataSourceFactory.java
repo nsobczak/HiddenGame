@@ -7,21 +7,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class DataSourceFactory {
+public class DataSourceFactory
+{
 
-	private static MysqlDataSource dataSource;
+    private static MysqlDataSource dataSource;
 
-	public static DataSource getDataSource() throws IOException {
-		if (dataSource == null) {
-			createDataSource();
-		}
-		return dataSource;
-	}
+    public static DataSource getDataSource() throws IOException
+    {
+        if (dataSource == null)
+        {
+            createDataSource();
+        }
+        return dataSource;
+    }
 
 
-	private static void createDataSource() throws IOException {
-		Properties dbProperties = new Properties();
-        try(InputStream dbPropertiesStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties")){
+    private static void createDataSource() throws IOException
+    {
+        Properties dbProperties = new Properties();
+        try (InputStream dbPropertiesStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"))
+        {
             dbProperties.load(dbPropertiesStream);
             dataSource = new MysqlDataSource();
             dataSource.setServerName(dbProperties.getProperty("db.server"));
@@ -31,5 +36,7 @@ public class DataSourceFactory {
             dataSource.setPassword(dbProperties.getProperty("db.password"));
         }
 
-	}
+    }
+
+
 }

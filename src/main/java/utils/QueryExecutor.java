@@ -18,7 +18,7 @@ public class QueryExecutor
                 QueryExecutor.mapParameters(statement, parameters);
                 ResultSet resultSet = statement.executeQuery();
                 mapper.parseResultSet(resultSet);
-                resultSet.close(); //TODO : Est-ce que c'est bien ca qu'on avait oublié de fermer ?
+                resultSet.close(); //TODO : Est-ce que c'est bien ca qu'on avait oublié de fermer ? => Je pense que oui
             } catch (SQLException e)
             {
                 e.printStackTrace();
