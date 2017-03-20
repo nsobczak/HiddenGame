@@ -2,8 +2,10 @@ package models;
 
 import daos.FileDao;
 import daos.impl.FileDaoImpl;
+import nio.sorter.FileSorter;
 import services.CryptoService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +15,27 @@ import java.util.List;
 public class Game
 {
     List<File> gameFiles;
+    FileSorter fileSorter;
 
     public Game()
     {
         this.gameFiles = new ArrayList<File>();
     }
 
+    public Game(String rootDirectory) throws IOException
+    {
+        this.gameFiles = new ArrayList<File>();
+        this.fileSorter = new FileSorter(rootDirectory);
+    }
+
     public List<File> getGameFiles()
     {
         return gameFiles;
+    }
+
+    public FileSorter getFileSorter()
+    {
+        return fileSorter;
     }
 
     //________________________________________________________________________________________
@@ -49,6 +63,8 @@ public class Game
         }
         System.out.println(fileNumber + " decrypted files");
     }
+
+
 
 
 }

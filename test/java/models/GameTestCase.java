@@ -67,6 +67,7 @@ public class GameTestCase
         // THEN
         assertThat(game.getGameFiles()).hasSize(108);
         assertThat(game.getGameFiles().get(1).equals(otherFile)).isTrue();
+        assertThat(game.getGameFiles().get(62).getParent().equals("")).isTrue();
     }
 
 

@@ -1,7 +1,8 @@
 package nio.sorter;
 
-import nio.sorter.FileSorter;
+import org.junit.Before;
 import org.junit.Test;
+import services.CryptoService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,83 +16,62 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class FileSorterTestCase
 {
+    private FileSorter sorter;
 
-    //_______________________________________________________
-    /* FONCTIONS DE TEST */
-//    testPrepareDirectory();
-//    testGetExtension();
-//    testCopyFile();
-//    testMoveFile();
-//    testConstructor("");
-//    testSortFiles("");
-
+    @Before
+    public void initDirectory() throws Exception
+    {
+        sorter = new FileSorter();
+        sorter.prepareDirectory("testDirectory", Paths.get("test", "java", "nio", "sorter"));
+    }
 
     @Test
     public void testPrepareDirectory() throws IOException
     {
-        FileSorter sorter = new FileSorter();
-        Path path = sorter.prepareDirectory("archive", Paths.get("test", "java", "nio", "sorter", "testDirectory"));
+        Path path = sorter.prepareDirectory("game", Paths.get("test", "java", "nio", "sorter", "testDirectory"));
         assertThat(Files.isDirectory(path)).isTrue();
     }
 
     @Test
     public void testGetExtension() throws IOException
     {
-        FileSorter sorter = new FileSorter();
         Path path = Paths.get("test", "java", "nio", "sorter", "testDirectory", "test.txt");
         assertThat(sorter.getExtension(path)).isEqualTo("txt");
     }
 
-//    @Test
-//    public void testCopyFile() throws IOException
-//    {
-//        //TODO
-//        FileSorter sorter = new FileSorter();
-//        sorter.copyFile(
-//                Paths.get("test", "java", "nio", "sorter", "testDirectory", "test.txt"),
-//                Paths.get("test", "java", "nio", "sorter", "test.txt")
-//        );
-//        assertThat(Files.isRegularFile(Paths.get("test", "java", "nio", "sorter", "test.txt"))).isTrue();
-//    }
+    @Test
+    public void testCopyFile() throws IOException
+    {
+        //WHEN
+        Path pathToOldFile = Paths.get("test", "java", "nio", "sorter", "testDirectory", "testCreateFile.txt");
+        if (Files.notExists(pathToOldFile))
+        {
+            Files.createFile(pathToOldFile);
+        }
+        //THEN
+        sorter.copyFile(pathToOldFile, Paths.get("test", "java", "nio", "sorter", "testDirectory", "game"));
+        Path pathToNewFile = Paths.get("test", "java", "nio", "sorter", "testDirectory", "game", "testCreateFile.txt");
+        assertThat(Files.isRegularFile(pathToNewFile)).isTrue();
+        assertThat(Files.exists(pathToNewFile)).isTrue();
+
+    }
 
     @Test
     public void testMoveFile() throws IOException
     {
-        FileSorter sorter = new FileSorter();
-        Path archive = Paths.get("test", "java", "nio", "sorter", "testDirectory", "archive");
-        sorter.setArchive(archive);
-
+        //WHEN
+        sorter.prepareDirectory("game", Paths.get("test", "java", "nio", "sorter", "testDirectory"));
+        sorter.setGame(Paths.get("test", "java", "nio", "sorter", "testDirectory", "game"));
         Path targetPath = Paths.get("test", "java", "nio", "sorter", "testDirectory", "testMoveFile.txt");
-        if (Files.notExists(targetPath)){
+        if (Files.notExists(targetPath))
+        {
             Files.createFile(targetPath);
         }
-
-        sorter.moveFileToArchive(Paths.get("test", "java", "nio", "sorter", "testDirectory", "testMoveFile.txt"));
+        //THEN
+        sorter.moveFileToGameFolder(targetPath);
+        assertThat(Files.exists(Paths.get("test", "java", "nio", "sorter", "testDirectory", "game", "testMoveFile.txt")))
+                .isTrue();
     }
-
-    @Test
-    public void testConstructor() throws IOException
-    {
-        String pathToRoot = "test";
-        FileSorter sorter = new FileSorter(pathToRoot);
-        assertThat(sorter.getRoot()).isEqualTo(Paths.get(pathToRoot));
-        assertThat(sorter.getArchive()).isEqualTo(Paths.get(pathToRoot, "archive"));
-        assertThat(sorter.getByExtension()).isEqualTo(Paths.get(pathToRoot, "byext"));
-
-    }
-//
-//    @Test
-//    public void testSortFiles() throws IOException
-//    {
-//        //TODO: pathToRoot
-//        String pathToRoot = "";
-//        System.out.println("===test 1===");
-//        FileSorter sorter1 = new FileSorter();
-//        System.out.println(sorter1.sortFiles());
-//        System.out.println("\n===test 2===");
-//        FileSorter sorter2 = new FileSorter(pathToRoot);
-//        System.out.println("\n\nnumber of sorted files : " + sorter2.sortFiles());
-//    }
 
 
 }
