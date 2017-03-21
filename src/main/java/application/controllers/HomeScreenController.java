@@ -5,8 +5,11 @@ import application.services.StageService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,6 +19,8 @@ public class HomeScreenController
 {
     @FXML
     private Button startButton;
+    @FXML
+    private RadioButton launchGameAfterBuildFinishedRadioButton;
     @FXML
     private Button closeButton;
 
@@ -44,15 +49,48 @@ public class HomeScreenController
         return result;
     }
 
-    private void displayInformationPopUp(String title, String content)
+    private void displayPopUpAlert(int errorWeight, String title, String content)
     {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR.INFORMATION);
+        switch (errorWeight)
+        {
+            case 1:
+                alert.setAlertType(Alert.AlertType.ERROR.WARNING);
+                alert.setHeaderText("WARNING");
+                break;
+            case 2:
+                alert.setAlertType(Alert.AlertType.ERROR.ERROR);
+                alert.setHeaderText("ERROR");
+                break;
+            default:
+                alert.setAlertType(Alert.AlertType.ERROR.INFORMATION);
+                alert.setHeaderText("Information");
+                break;
+        }
         alert.initOwner(StageService.getInstance().getPrimaryStage());
         alert.setTitle(title);
-        alert.setHeaderText("Information");
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
+    private void handleLaunchGameAfterBuildFinishedRadioButtonOption() throws IOException
+    {
+        if (this.launchGameAfterBuildFinishedRadioButton.isSelected())
+        {
+            if (Desktop.isDesktopSupported())
+            {
+                if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
+                    Desktop.getDesktop().browse(new File(this.dbRootTextField.getText()).toURI());
+                else
+                    displayPopUpAlert(2, "OS Error", "Your os does not support \"Browse\" action.\n" +
+                            "Game can't be launched from this software.");
+            } else
+                displayPopUpAlert(2, "OS Error", "Your os is not supported.\n" +
+                        "Game can't be launched from this software.");
+        }
+    }
+
 
     @FXML
     public void handleLaunchButton() throws Exception
@@ -72,10 +110,11 @@ public class HomeScreenController
             //quand on le lance 2 fois la 2ème fois ça fonctionne (ce n'est pas un pb de temps d'écriture du fichier)
             game.initDecryptedFileList();
             game.buildGameFromFileList();
-            displayInformationPopUp("Build finished", "Game has been built");
+            displayPopUpAlert(0, "Build finished", "Game has been built.");
+            this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
         } else
         {
-            displayInformationPopUp("Empty field", "There may be empty text fields");
+            displayPopUpAlert(1, "Empty field", "There may be empty text fields.");
         }
     }
 
