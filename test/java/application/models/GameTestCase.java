@@ -1,6 +1,6 @@
 package application.models;
 
-import application.sorter.FileSorter;
+import application.nio.sorter.FileSorter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,7 +46,7 @@ public class GameTestCase
         game.writeDatabaseProperties(
                 "Localhost", 3306,
                 "db_hidden_game", "root",
-                "");
+                "ISEN");
         game.initDecryptedFileList();
         System.out.println(game.getGameFiles().get(1).toString());
         File otherFile = new File(236, "backgroundRenderer.js", "code/", game.getGameFiles().get(1).getIv(), "",

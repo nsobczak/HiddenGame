@@ -2,7 +2,7 @@ package application.models;
 
 import application.daos.FileDao;
 import application.daos.impl.FileDaoImpl;
-import application.sorter.FileSorter;
+import application.nio.sorter.FileSorter;
 import application.services.CryptoService;
 
 import java.io.IOException;

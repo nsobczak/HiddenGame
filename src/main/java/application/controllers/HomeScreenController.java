@@ -1,36 +1,90 @@
 package application.controllers;
 
+import application.models.Game;
 import application.services.StageService;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 /**
  * Created by vvinc_000 on 27/02/2017.
  */
-public class HomeScreenController {
+public class HomeScreenController
+{
+    @FXML
+    private Button startButton;
+    @FXML
+    private Button closeButton;
 
     @FXML
-    void handleLaunchButton() throws IOException {
-        // Load the QuizOverview.fxml file and get its root AnchorPane as a java object;
-        FXMLLoader loader = new FXMLLoader();
-
-        loader.setLocation(application.HiddenGameApp.class.getResource("view/QuizOverview.fxml"));
-        AnchorPane rootPane = loader.load();
-
-        // Create a Scene object from the AnchorPane object;
-        Scene overViewScene = new Scene(rootPane);
-
-        // Get the PrimaryStage from the StageService  class and set the scene you created inside;
-        StageService.getInstance().getPrimaryStage().setScene(overViewScene);
-
-    }
+    private TextField dbAdressTextField;
     @FXML
-    void handleCloseButton() throws IOException {
+    private TextField dbSchemaTextField;
+    @FXML
+    private TextField dbPasswordTextField;
+    @FXML
+    private TextField dbPortTextField;
+    @FXML
+    private TextField dbUserTextField;
+    @FXML
+    private TextField dbRootTextField;
 
+    //______________________________________________________________________________
+    private Boolean isThereNoEmptyTextField()
+    {
+        Boolean result = true;
+        if (this.dbRootTextField.getText().trim().isEmpty()) result = false;
+        else if (this.dbAdressTextField.getText().trim().isEmpty()) result = false;
+        else if (this.dbSchemaTextField.getText().trim().isEmpty()) result = false;
+        else if (this.dbPortTextField.getText().trim().isEmpty()) result = false;
+        else if (this.dbUserTextField.getText().trim().isEmpty()) result = false;
+        return result;
     }
+
+    private void displayInformationPopUp(String title, String content)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(StageService.getInstance().getPrimaryStage());
+        alert.setTitle(title);
+        alert.setHeaderText("Information");
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void handleLaunchButton() throws Exception
+    {
+        System.out.println("hello world !");
+
+        if (this.isThereNoEmptyTextField())
+        {
+            Game game = new Game(this.dbRootTextField.getText());
+            game.writeDatabaseProperties(
+                    this.dbAdressTextField.getText(),
+                    Integer.parseInt(this.dbPortTextField.getText()),
+                    this.dbSchemaTextField.getText(),
+                    this.dbUserTextField.getText(),
+                    this.dbPasswordTextField.getText());
+            //TODO: apparemment y'aurait un pb de lecture du port de la bdd causée par le type de db.port int/String par dataSource.setPort(Integer.valueOf(dbProperties.getProperty("db.port")));
+            //quand on le lance 2 fois la 2ème fois ça fonctionne (ce n'est pas un pb de temps d'écriture du fichier)
+            game.initDecryptedFileList();
+            game.buildGameFromFileList();
+            displayInformationPopUp("Build finished", "Game has been built");
+        } else
+        {
+            displayInformationPopUp("Empty field", "There may be empty text fields");
+        }
+    }
+
+
+    @FXML
+    public void handleCloseButton() throws IOException
+    {
+        StageService.getInstance().closeStage();
+    }
+
 
 }

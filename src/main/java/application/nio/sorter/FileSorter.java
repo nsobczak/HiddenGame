@@ -1,4 +1,4 @@
-package application.sorter;
+package application.nio.sorter;
 
 import java.io.IOException;
 import java.nio.file.*;
