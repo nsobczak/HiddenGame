@@ -64,7 +64,7 @@ public class GameTestCase
     public void shouldCreateGameFile() throws Exception
     {
         // WHEN
-        game.setFileSorter(new FileSorter(Paths.get("test", "java", "models", "buildGameCreateFileTest").toString()));
+        game.setFileSorter(new FileSorter(Paths.get("test", "java", "application", "models", "buildGameCreateFileTest").toString()));
         if (Files.notExists(game.fileSorter.getRoot()))
         {
             Files.createDirectories(game.fileSorter.getRoot());
@@ -84,7 +84,7 @@ public class GameTestCase
     public void shouldBuildGameFromFileList() throws Exception
     {
         // WHEN
-        game.setFileSorter(new FileSorter(Paths.get("test", "java", "models", "buildGameTest").toString()));
+        game.setFileSorter(new FileSorter(Paths.get("test", "java", "application", "models", "buildGameTest").toString()));
         if (Files.notExists(game.fileSorter.getRoot()))
         {
             Files.createDirectories(game.fileSorter.getRoot());
