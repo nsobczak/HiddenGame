@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0"
+            prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.controllers.HomeScreenController">
+    <children>
+        <Text layoutX="178.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+            <font>
+                <Font name="cheeseborger" size="32.0"/>
+            </font>
+        </Text>
+        <Button layoutX="496.0" layoutY="293.0" mnemonicParsing="false" onAction="#handleCloseButton" text="CLOSE"
+                textAlignment="CENTER">
+            <font>
+                <Font name="cheeseborger" size="16.0"/>
+            </font>
+        </Button>
+        <Button layoutX="14.0" layoutY="293.0" mnemonicParsing="false" onAction="#handleLaunchButton" text="START"
+                textAlignment="CENTER">
+            <font>
+                <Font name="cheeseborger" size="16.0"/>
+            </font>
+        </Button>
+        <TextField layoutX="343.0" layoutY="110.0"/>
+        <TextField layoutX="343.0" layoutY="180.0"/>
+        <TextField layoutX="343.0" layoutY="250.0"/>
+        <TextField layoutX="343.0" layoutY="145.0"/>
+        <TextField layoutX="343.0" layoutY="215.0"/>
+        <TextField layoutX="343.0" layoutY="75.0"/>
+    </children>
+</AnchorPane>
