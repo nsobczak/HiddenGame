@@ -81,7 +81,8 @@ public class HomeScreenController
             if (Desktop.isDesktopSupported())
             {
                 if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
-                    Desktop.getDesktop().browse(new File(this.dbRootTextField.getText()).toURI());
+                    Desktop.getDesktop().browse(new File(this.dbRootTextField.getText()+"/index.html").toURI());
+                //TODO rendre compatible auvec les autres os que windows (on avait oublie de préciser qu'il fallait lancer l'index.html)
                 else
                     displayPopUpAlert(2, "OS Error", "Your os does not support \"Browse\" action.\n" +
                             "Game can't be launched from this software.");
