@@ -100,14 +100,11 @@ public class HomeScreenController
         if (this.isThereNoEmptyTextField())
         {
             Game game = new Game(this.dbRootTextField.getText());
-            game.writeDatabaseProperties(
-                    this.dbAdressTextField.getText(),
-                    Integer.parseInt(this.dbPortTextField.getText()),
+            Game.initGameDatabaseProperties(this.dbAdressTextField.getText(),
+                    Integer.valueOf(this.dbPortTextField.getText()),
                     this.dbSchemaTextField.getText(),
                     this.dbUserTextField.getText(),
                     this.dbPasswordTextField.getText());
-            //TODO: apparemment y'aurait un pb de lecture du port de la bdd causée par le type de db.port int/String par dataSource.setPort(Integer.valueOf(dbProperties.getProperty("db.port")));
-            //quand on le lance 2 fois la 2ème fois ça fonctionne (ce n'est pas un pb de temps d'écriture du fichier)
             game.initDecryptedFileList();
             game.buildGameFromFileList();
             displayPopUpAlert(0, "Build finished", "Game has been built.");
