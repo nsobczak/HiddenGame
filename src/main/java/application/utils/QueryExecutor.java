@@ -23,6 +23,9 @@ public class QueryExecutor
             {
                 e.printStackTrace();
             }
+        } catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException e)
+        {
+            e.printStackTrace();
         } catch (SQLException e)
         {
             e.printStackTrace();

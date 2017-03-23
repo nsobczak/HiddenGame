@@ -64,7 +64,7 @@ public class FileSorter
                 Files.createDirectory(newDirectory);
             } catch (FileAlreadyExistsException e)
             {
-                System.err.println("prepareDirectory : le répertoire existe deja !");
+//                System.err.println("prepareDirectory : le répertoire existe deja !");
             }
         } else
         {
