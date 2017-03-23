@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by vvinc_000 on 27/02/2017.
@@ -94,22 +95,32 @@ public class HomeScreenController
 
 
     @FXML
-    public void handleLaunchButton() throws Exception
+    public void handleLaunchButton()
     {
-        System.out.println("hello world !");
+        System.out.println("hello from hidden game !");
 
         if (this.isThereNoEmptyTextField())
         {
-            Game game = new Game(this.dbRootTextField.getText());
-            Game.initGameDatabaseProperties(this.dbAdressTextField.getText(),
-                    Integer.valueOf(this.dbPortTextField.getText()),
-                    this.dbSchemaTextField.getText(),
-                    this.dbUserTextField.getText(),
-                    this.dbPasswordTextField.getText());
-            game.initDecryptedFileList();
-            game.buildGameFromFileList();
-            displayPopUpAlert(0, "Build finished", "Game has been built.");
-            this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
+            try
+            {
+                Game game = new Game(this.dbRootTextField.getText());
+                Game.initGameDatabaseProperties(this.dbAdressTextField.getText(),
+                        Integer.valueOf(this.dbPortTextField.getText()),
+                        this.dbSchemaTextField.getText(),
+                        this.dbUserTextField.getText(),
+                        this.dbPasswordTextField.getText());
+
+                game.initDecryptedFileList();
+                game.buildGameFromFileList();
+                displayPopUpAlert(0, "Build finished", "Game has been built.");
+                this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
+            } catch (SQLException e)
+            {
+                displayPopUpAlert(2, "Can't build game", "Can't connect to database.\nThere may be wrong fields.");
+            } catch (Exception e)
+            {
+                displayPopUpAlert(2, "Can't build game", "Can't build game.\nThere may be wrong fields.");
+            }
         } else
         {
             displayPopUpAlert(1, "Empty field", "There may be empty text fields.");
