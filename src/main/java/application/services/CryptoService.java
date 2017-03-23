@@ -10,7 +10,8 @@ import java.security.AlgorithmParameters;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-public class CryptoService {
+public class CryptoService
+{
 
     private byte[] iv;
 
@@ -20,8 +21,10 @@ public class CryptoService {
     private SecretKeySpec secret;
 
 
-    public CryptoService(){
-        try {
+    public CryptoService()
+    {
+        try
+        {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             KeySpec spec = new PBEKeySpec("isenIsC00l".toCharArray(), "2017".getBytes(), 65536, 256);
             SecretKey tmp = factory.generateSecret(spec);
@@ -31,35 +34,43 @@ public class CryptoService {
             cipherEncrypt.init(Cipher.ENCRYPT_MODE, secret);
             AlgorithmParameters params = cipherEncrypt.getParameters();
             iv = params.getParameterSpec(IvParameterSpec.class).getIV();
-        }catch(Exception e){
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public String encrypt(byte[] clearInfo){
-        try {
+    public String encrypt(byte[] clearInfo)
+    {
+        try
+        {
 
             byte[] ciphertext = cipherEncrypt.doFinal(clearInfo);
             return Base64.getEncoder().encodeToString(ciphertext);
-        }catch(Exception e){
+        } catch (Exception e)
+        {
             e.printStackTrace();
             return null;
         }
     }
 
-    public byte[] decrypt(String cryptedInfo, String iv){
-        try {
+    public byte[] decrypt(String cryptedInfo, String iv)
+    {
+        try
+        {
 
-            cipherDecrypt.init(Cipher.DECRYPT_MODE,secret,new IvParameterSpec(Base64.getDecoder().decode(iv)));
+            cipherDecrypt.init(Cipher.DECRYPT_MODE, secret, new IvParameterSpec(Base64.getDecoder().decode(iv)));
             return cipherDecrypt.doFinal(Base64.getDecoder().decode(cryptedInfo));
-        }catch(Exception e){
+        } catch (Exception e)
+        {
             e.printStackTrace();
             return null;
         }
     }
 
 
-    public byte[] getIv() {
+    public byte[] getIv()
+    {
         return iv;
     }
 }

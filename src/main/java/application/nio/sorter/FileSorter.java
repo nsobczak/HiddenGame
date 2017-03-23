@@ -58,7 +58,6 @@ public class FileSorter
                 Files.createDirectories(base);
             }
             // On append le newDir a la base
-//            System.out.println("append le newDir a la base");
             newDirectory = base.resolve(newDir);
             try
             {
@@ -69,17 +68,13 @@ public class FileSorter
             }
         } else
         {
-            // Sinon on souleve l'exception
             throw new IOException();
         }
-//        System.out.println(newDirectory);
         return newDirectory;
     }
 
 
     /**
-     * GETEXTENSION
-     *
      * @param entry: le chemin du fichier a analyser
      * @return: l'extension du fichier
      */
@@ -88,7 +83,6 @@ public class FileSorter
         String file = null;
         String result = null;
 
-//        System.out.println(entry);
         file = entry.getFileName().toString();
         String[] parts = file.split("\\.");
         result = parts[parts.length - 1];
@@ -111,9 +105,7 @@ public class FileSorter
         } else
         {
             Path filename = entry.getFileName();
-//            System.out.println("filename : " + filename);
             Path prepDir = directory.resolve(filename);
-//            System.out.println("prepDir : " + prepDir);
             if (Files.exists(prepDir))
             {
                 System.err.println("le fichier existe déjà !");
@@ -140,10 +132,9 @@ public class FileSorter
             //Création du répertoire game s'il n'existe pas
             try
             {
-                prepareDirectory("game", Paths.get("src", "isen", "java22017", "practical2"));
+                prepareDirectory("game", Paths.get("src"));
             } catch (IOException e)
             {
-//                e.printStackTrace();
             }
             //Déplacement du fichier
             Path filename = entry.getFileName();

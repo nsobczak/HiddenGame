@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 /**
- * Created by vvinc_000 on 13/03/2017.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 13/03/2017.
  */
 public class FileDaoImplTestCase
 {

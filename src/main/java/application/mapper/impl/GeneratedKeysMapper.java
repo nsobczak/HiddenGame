@@ -8,25 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GeneratedKeysMapper implements ResultMapper<Integer> {
+public class GeneratedKeysMapper implements ResultMapper<Integer>
+{
     private List<Integer> integerList;
 
 
-    public GeneratedKeysMapper() {
+    public GeneratedKeysMapper()
+    {
         this.integerList = new ArrayList<>();
     }
 
     @Override
-    public List getParsedList() throws SQLException {
+    public List getParsedList() throws SQLException
+    {
         return this.integerList;
     }
 
     @Override
-    public void parseResultSet(ResultSet ids) throws SQLException {
-        if (ids.next()) {
+    public void parseResultSet(ResultSet ids) throws SQLException
+    {
+        if (ids.next())
+        {
             int generatedId = (int) ids.getLong(1);
             this.integerList.add(generatedId);
-        } else {
+        } else
+        {
             System.out.println("can't find generated id");
         }
     }

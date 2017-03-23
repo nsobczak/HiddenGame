@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Created by nicolas on 19/03/17.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 19/03/17.
  */
 public class CryptoServiceTestCase
 {
@@ -218,11 +218,9 @@ public class CryptoServiceTestCase
     }
 
 
-
     @Test
-        public void shouldEncryptFiles() throws Exception
+    public void shouldEncryptFiles() throws Exception
     {
-        //TODO: check if it is a relevant test
         // WHEN
         byte[] clearByteFilename = "backgroundGenerator.js".getBytes();
         String encryptedFilename = cryptoService.encrypt(clearByteFilename);

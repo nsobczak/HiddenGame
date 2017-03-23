@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Created by root on 19/03/17.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 19/03/17.
  */
 public class FileTestCase
 {
@@ -43,7 +43,7 @@ public class FileTestCase
     @Test
     public void equalsShouldBeEqual() throws Exception
     {
-        // WHEN
+        // GIVEN
         File otherFile1 = new File(123, "testFileName", "testParent", "testIv", "testContent");
         File otherFile2 = new File(600, "testFileName", "testParent", "testIv", new byte[]{123, 100});
         //THEN
@@ -54,7 +54,7 @@ public class FileTestCase
     @Test
     public void equalsShouldNotBeEqual() throws Exception
     {
-        // WHEN
+        // GIVEN
         File otherFileNull = null;
         String otherFileString = "Test";
         File otherFileId_1 = new File(124, "testFileName", "testParent", "testIv", "testContent");

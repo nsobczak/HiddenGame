@@ -12,10 +12,7 @@ public class DataSourceFactory
 
     public static DataSource getDataSource() throws IOException
     {
-        if (dataSource == null)
-        {
-            createDataSource();
-        }
+        createDataSource();
         return dataSource;
     }
 
@@ -29,7 +26,6 @@ public class DataSourceFactory
         dataSource.setDatabaseName(Game.getSchema());
         dataSource.setUser(Game.getUser());
         dataSource.setPassword(Game.getPassword());
-
     }
 
 

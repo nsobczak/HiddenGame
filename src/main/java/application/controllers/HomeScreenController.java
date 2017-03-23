@@ -11,10 +11,10 @@ import javafx.scene.control.TextField;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.nio.file.Paths;
 
 /**
- * Created by vvinc_000 on 27/02/2017.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 27/02/2017.
  */
 public class HomeScreenController
 {
@@ -82,8 +82,7 @@ public class HomeScreenController
             if (Desktop.isDesktopSupported())
             {
                 if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
-                    Desktop.getDesktop().browse(new File(this.dbRootTextField.getText()+"/index.html").toURI());
-                //TODO rendre compatible auvec les autres os que windows (on avait oublie de préciser qu'il fallait lancer l'index.html)
+                    Desktop.getDesktop().browse(new File(Paths.get(this.dbRootTextField.getText(), "index.html").toString()).toURI());
                 else
                     displayPopUpAlert(2, "OS Error", "Your os does not support \"Browse\" action.\n" +
                             "Game can't be launched from this software.");
@@ -109,17 +108,18 @@ public class HomeScreenController
                         this.dbSchemaTextField.getText(),
                         this.dbUserTextField.getText(),
                         this.dbPasswordTextField.getText());
-
-                game.initDecryptedFileList();
-                game.buildGameFromFileList();
-                displayPopUpAlert(0, "Build finished", "Game has been built.");
-                this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
-            } catch (SQLException e)
-            {
-                displayPopUpAlert(2, "Can't build game", "Can't connect to database.\nThere may be wrong fields.");
+                if (game.initDecryptedFileList())
+                {
+                    game.buildGameFromFileList();
+                    displayPopUpAlert(0, "Build finished", "Game has been built.");
+                    this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
+                } else
+                {
+                    displayPopUpAlert(2, "Can't build game 1", "Can't connect to database.\nThere may be wrong fields.");
+                }
             } catch (Exception e)
             {
-                displayPopUpAlert(2, "Can't build game", "Can't build game.\nThere may be wrong fields.");
+                displayPopUpAlert(2, "Can't build game", "Can't build game.\nThere may be wrong fields.\nTip: port has to be a number.");
             }
         } else
         {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by nicolas on 13/03/17.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 13/03/17.
  */
 public class FileResultMapper implements ResultMapper<File>
 {

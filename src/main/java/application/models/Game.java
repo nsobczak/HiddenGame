@@ -1,22 +1,19 @@
 package application.models;
 
 import application.daos.FileDao;
-import application.daos.impl.DataSourceFactory;
 import application.daos.impl.FileDaoImpl;
 import application.nio.sorter.FileSorter;
 import application.services.CryptoService;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
- * Created by root on 19/03/17.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 19/03/17.
  */
 public class Game
 {
@@ -122,7 +119,7 @@ public class Game
     }
 
 
-    public void initDecryptedFileList() throws Exception
+    public boolean initDecryptedFileList() throws Exception
     {
         FileDao fileDao = new FileDaoImpl();
         List<File> files = fileDao.listFiles();
@@ -144,6 +141,8 @@ public class Game
             fileNumber++;
         }
         System.out.println(fileNumber + " decrypted files");
+        if (fileNumber > 0) return true;
+        else return false;
     }
 
 

@@ -3,7 +3,7 @@ package application.models;
 import java.util.Arrays;
 
 /**
- * Created by nicolas on 13/03/17.
+ * Created by Vincent Reynaert & Nicolas Sobczak on 13/03/17.
  */
 public class File
 {
@@ -13,7 +13,6 @@ public class File
     private String iv;
     private String cryptedStringContent;
     private byte[] content;
-
 
 
     //________________________________________________________________________________________
@@ -160,8 +159,9 @@ public class File
             {
                 result = false;
                 System.err.println("getContent() = " + this.getContent() + " != " + otherFile.getContent() + " = otherFile.getContent()");
-            }else if ((this.getContent() == null && otherFile.getContent() != null) ||
-                    this.getContent() != null && otherFile.getContent() == null){
+            } else if ((this.getContent() == null && otherFile.getContent() != null) ||
+                    this.getContent() != null && otherFile.getContent() == null)
+            {
                 result = false;
                 System.err.println("getContent() = " + this.getContent() + " != " + otherFile.getContent() + " = otherFile.getContent()");
             }
