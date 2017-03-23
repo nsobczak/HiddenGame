@@ -5,17 +5,18 @@
     -fx-background-position: center center;
 }
 
-.button {
-    -fx-padding: 5 22 5 22;
+.button{
     -fx-border-color: white;
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: black;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-family: "Dodger";
+    -fx-font-size: 2ex;
     -fx-text-fill: white;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
+
+
 
 .button:hover {
     -fx-background-color: #3a3a3a;
