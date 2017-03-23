@@ -21,32 +21,18 @@ public class GameTestCase
     public void initFile() throws Exception
     {
         game = new Game();
+        //TODO: change properties to match your connection
+        Game.setHost("localhost");
+        Game.setPortNumber(3306);
+        Game.setSchema("db_hidden_game");
+        Game.setUser("root");
+        Game.setPassword("ISEN");
     }
-
-//    @Test
-//    public void shouldWriteDatabasePropertiesFile() throws Exception
-//    {
-//        //WHEN
-//        String otherContent = "db.server=host" +
-//                "\ndb.port=" + -1 +
-//                "\ndb.schema=schema" +
-//                "\ndb.user=user" +
-//                "\ndb.password=password";
-//        //THEN
-//        game.writeDatabaseProperties(
-//                "host", -1, "schema", "user", "password");
-//        String fileContent = new String(Files.readAllBytes(Paths.get("src", "main", "ressources", "db.properties")));
-//        assertThat(fileContent).isEqualTo(otherContent);
-//    }
 
     @Test
     public void shouldInitialiazeGameFiles() throws Exception
     {
         // WHEN
-        game.writeDatabaseProperties(
-                "Localhost", 3306,
-                "db_hidden_game", "root",
-                "ISEN");
         game.initDecryptedFileList();
         System.out.println(game.getGameFiles().get(1).toString());
         File otherFile = new File(236, "backgroundRenderer.js", "code/", game.getGameFiles().get(1).getIv(), "",
@@ -54,7 +40,6 @@ public class GameTestCase
         );
 
         // THEN
-
         assertThat(game.getGameFiles()).hasSize(108);
         assertThat(game.getGameFiles().get(1).equals(otherFile)).isTrue();
         assertThat(game.getGameFiles().get(62).getParent().equals("")).isTrue();

@@ -2,6 +2,7 @@ package application.daos.impl;
 
 import application.daos.FileDao;
 import application.models.File;
+import application.models.Game;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +23,13 @@ public class FileDaoImplTestCase
     @Before
     public void initDatabase() throws Exception
     {
+        //TODO: change properties to match your connection
+        Game.setHost("localhost");
+        Game.setPortNumber(3306);
+        Game.setSchema("db_hidden_game");
+        Game.setUser("root");
+        Game.setPassword("ISEN");
+
         fileDao = new FileDaoImpl();
         //test connection
         Connection connection = DataSourceFactory.getDataSource().getConnection();

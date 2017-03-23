@@ -1,16 +1,19 @@
 package application.models;
 
 import application.daos.FileDao;
+import application.daos.impl.DataSourceFactory;
 import application.daos.impl.FileDaoImpl;
 import application.nio.sorter.FileSorter;
 import application.services.CryptoService;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by root on 19/03/17.
@@ -19,33 +22,23 @@ public class Game
 {
     List<File> gameFiles;
     FileSorter fileSorter;
-    private String host;
-    private int portNumber;
-    private String schema;
-    private String user;
-    private String password;
+    private static String host;
+    private static int portNumber;
+    private static String schema;
+    private static String user;
+    private static String password;
 
 
     public Game()
     {
         this.gameFiles = new ArrayList<File>();
         this.fileSorter = new FileSorter();
-        this.host = null;
-        this.portNumber = -1;
-        this.schema = null;
-        this.user = null;
-        this.password = null;
     }
 
     public Game(String rootDirectory) throws IOException
     {
         this.gameFiles = new ArrayList<File>();
         this.fileSorter = new FileSorter(rootDirectory);
-        this.host = null;
-        this.portNumber = -1;
-        this.schema = null;
-        this.user = null;
-        this.password = null;
     }
 
     public List<File> getGameFiles()
@@ -68,30 +61,64 @@ public class Game
         this.fileSorter = fileSorter;
     }
 
-    //________________________________________________________________________________________
-    public void initGameDatabaseProperties(String host, int portNumber, String schema, String user, String password)
+    public static String getHost()
     {
-        this.host = host;
-        this.portNumber = portNumber;
-        this.schema = schema;
-        this.user = user;
-        this.password = password;
+        return host;
     }
 
-    public void writeDatabaseProperties(String host, int portNumber, String schema, String user, String password) throws IOException
+    public static int getPortNumber()
     {
-        Path pathToDbProperties = Paths.get("src", "main", "resources", "db.properties");
-        if (Files.notExists(pathToDbProperties))
-        {
-            Files.createFile(pathToDbProperties);
-        }
-        String content = "db.server=" + host +
-                "\ndb.port=" + String.valueOf(portNumber) +
-                "\ndb.schema=" + schema +
-                "\ndb.user=" + user +
-                "\ndb.password=" + password;
-        Files.write(pathToDbProperties, content.getBytes());
-        initGameDatabaseProperties(host, portNumber, schema, user, password);
+        return portNumber;
+    }
+
+    public static String getSchema()
+    {
+        return schema;
+    }
+
+    public static String getUser()
+    {
+        return user;
+    }
+
+    public static String getPassword()
+    {
+        return password;
+    }
+
+    public static void setHost(String host)
+    {
+        Game.host = host;
+    }
+
+    public static void setPortNumber(int portNumber)
+    {
+        Game.portNumber = portNumber;
+    }
+
+    public static void setSchema(String schema)
+    {
+        Game.schema = schema;
+    }
+
+    public static void setUser(String user)
+    {
+        Game.user = user;
+    }
+
+    public static void setPassword(String password)
+    {
+        Game.password = password;
+    }
+
+    //________________________________________________________________________________________
+    public static void initGameDatabaseProperties(String host, int portNumber, String schema, String user, String password)
+    {
+        Game.host = host;
+        Game.portNumber = portNumber;
+        Game.schema = schema;
+        Game.user = user;
+        Game.password = password;
     }
 
 

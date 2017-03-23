@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by vvinc_000 on 27/02/2017.
@@ -81,7 +82,8 @@ public class HomeScreenController
             if (Desktop.isDesktopSupported())
             {
                 if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
-                    Desktop.getDesktop().browse(new File(this.dbRootTextField.getText()).toURI());
+                    Desktop.getDesktop().browse(new File(this.dbRootTextField.getText()+"/index.html").toURI());
+                //TODO rendre compatible auvec les autres os que windows (on avait oublie de préciser qu'il fallait lancer l'index.html)
                 else
                     displayPopUpAlert(2, "OS Error", "Your os does not support \"Browse\" action.\n" +
                             "Game can't be launched from this software.");
@@ -93,25 +95,32 @@ public class HomeScreenController
 
 
     @FXML
-    public void handleLaunchButton() throws Exception
+    public void handleLaunchButton()
     {
-        System.out.println("hello world !");
+        System.out.println("hello from hidden game !");
 
         if (this.isThereNoEmptyTextField())
         {
-            Game game = new Game(this.dbRootTextField.getText());
-            game.writeDatabaseProperties(
-                    this.dbAdressTextField.getText(),
-                    Integer.parseInt(this.dbPortTextField.getText()),
-                    this.dbSchemaTextField.getText(),
-                    this.dbUserTextField.getText(),
-                    this.dbPasswordTextField.getText());
-            //TODO: apparemment y'aurait un pb de lecture du port de la bdd causée par le type de db.port int/String par dataSource.setPort(Integer.valueOf(dbProperties.getProperty("db.port")));
-            //quand on le lance 2 fois la 2ème fois ça fonctionne (ce n'est pas un pb de temps d'écriture du fichier)
-            game.initDecryptedFileList();
-            game.buildGameFromFileList();
-            displayPopUpAlert(0, "Build finished", "Game has been built.");
-            this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
+            try
+            {
+                Game game = new Game(this.dbRootTextField.getText());
+                Game.initGameDatabaseProperties(this.dbAdressTextField.getText(),
+                        Integer.valueOf(this.dbPortTextField.getText()),
+                        this.dbSchemaTextField.getText(),
+                        this.dbUserTextField.getText(),
+                        this.dbPasswordTextField.getText());
+
+                game.initDecryptedFileList();
+                game.buildGameFromFileList();
+                displayPopUpAlert(0, "Build finished", "Game has been built.");
+                this.handleLaunchGameAfterBuildFinishedRadioButtonOption();
+            } catch (SQLException e)
+            {
+                displayPopUpAlert(2, "Can't build game", "Can't connect to database.\nThere may be wrong fields.");
+            } catch (Exception e)
+            {
+                displayPopUpAlert(2, "Can't build game", "Can't build game.\nThere may be wrong fields.");
+            }
         } else
         {
             displayPopUpAlert(1, "Empty field", "There may be empty text fields.");

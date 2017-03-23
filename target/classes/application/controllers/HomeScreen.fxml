@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.HomeScreenController">
+    <children>
+        <Text fx:id="title" fill="WHITE" layoutX="51.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hidden ">
+            <font>
+                <Font name="Dodger" size="32.0" />
+            </font>
+        </Text>
+      <Text fx:id="title1" fill="WHITE" layoutX="392.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME">
+         <font>
+            <Font name="Dodger" size="32.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="14.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination folder where to build the game" AnchorPane.leftAnchor="14.0" />
+        <TextField fx:id="dbRootTextField" layoutX="366.0" layoutY="55.0" promptText="root" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database adress property" />
+        <TextField fx:id="dbAdressTextField" layoutX="366.0" layoutY="91.0" promptText="dbAdress" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database port property" />
+        <TextField fx:id="dbPortTextField" layoutX="366.0" layoutY="126.0" promptText="dbPort" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database schema property" />
+        <TextField fx:id="dbSchemaTextField" layoutX="366.0" layoutY="161.0" promptText="dbSchema" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database user property" />
+        <TextField fx:id="dbUserTextField" layoutX="366.0" layoutY="196.0" promptText="dbUser" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database password property" />
+        <TextField fx:id="dbPasswordTextField" layoutX="366.0" layoutY="231.0" promptText="dbPassword" />
+        <Button fx:id="startButton" layoutX="15.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleLaunchButton" text="START" textAlignment="CENTER">
+            <font>
+                <Font name="cheeseborger" size="16.0" />
+            </font>
+        </Button>
+      <RadioButton fx:id="launchGameAfterBuildFinishedRadioButton" layoutX="16.0" layoutY="273.0" mnemonicParsing="false" style="-fx-text-fill: white;" text="Launch game after build finished" />
+        <Button fx:id="closeButton" layoutX="488.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleCloseButton" text="CLOSE" textAlignment="CENTER">
+            <font>
+                <Font name="cheeseborger" size="16.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
